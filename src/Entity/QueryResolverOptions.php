@@ -44,21 +44,13 @@ class QueryResolverOptions
         return $this;
     }
 
-    /**
-     * @param string|null $denormalizationGroup
-     * @return QueryResolverOptions
-     */
-    public function setDenormalizationGroup($denormalizationGroup): self
+    public function setDenormalizationGroup(?string $denormalizationGroup): self
     {
         $this->denormalizationGroup = $denormalizationGroup;
         return $this;
     }
 
-    /**
-     * @param ValidationOptions|null $validationOptions
-     * @return $this
-     */
-    public function setValidationOptions(ValidationOptions $validationOptions = null): self
+    public function setValidationOptions(?ValidationOptions $validationOptions = null): self
     {
         $this->validationOptions = $validationOptions;
         return $this;
@@ -86,10 +78,7 @@ class QueryResolverOptions
         return $this->denormalizationType;
     }
 
-    /**
-     * return string|null
-     */
-    public function getDenormalizationGroup()
+    public function getDenormalizationGroup(): ?string
     {
         return $this->denormalizationGroup;
     }

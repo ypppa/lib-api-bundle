@@ -5,7 +5,7 @@ namespace Paysera\Bundle\ApiBundle\Service\Validation;
 
 class CamelCaseToSnakeCaseConverter implements PropertyPathConverterInterface
 {
-    public function convert($path)
+    public function convert(string $path): string
     {
         return ltrim(
             mb_strtolower(

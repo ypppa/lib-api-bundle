@@ -28,20 +28,12 @@ class BodyContentType implements RestAnnotationInterface
         $this->setJsonEncodedBody($options['jsonEncodedBody'] ?? false);
     }
 
-    /**
-     * @param array $supportedContentTypes
-     * @return $this
-     */
     private function setSupportedContentTypes(array $supportedContentTypes): self
     {
         $this->supportedContentTypes = $supportedContentTypes;
         return $this;
     }
 
-    /**
-     * @param bool $jsonEncodedBody
-     * @return $this
-     */
     private function setJsonEncodedBody(bool $jsonEncodedBody): self
     {
         $this->jsonEncodedBody = $jsonEncodedBody;

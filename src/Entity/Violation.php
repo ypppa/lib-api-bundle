@@ -11,7 +11,7 @@ class Violation
     private $field;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $code;
 
@@ -20,60 +20,36 @@ class Violation
      */
     private $message;
 
-    /**
-     * @return null|string
-     */
-    public function getField()
+    public function getField(): ?string
     {
         return $this->field;
     }
 
-    /**
-     * @param string $field
-     *
-     * @return $this
-     */
-    public function setField($field)
+    public function setField(string $field): self
     {
         $this->field = $field;
 
         return $this;
     }
 
-    /**
-     * @return null|string
-     */
-    public function getCode()
+    public function getCode(): ?string
     {
         return $this->code;
     }
 
-    /**
-     * @param string $code
-     *
-     * @return $this
-     */
-    public function setCode($code)
+    public function setCode(?string $code): self
     {
         $this->code = $code;
 
         return $this;
     }
 
-    /**
-     * @return null|string
-     */
-    public function getMessage()
+    public function getMessage(): ?string
     {
         return $this->message;
     }
 
-    /**
-     * @param string $message
-     *
-     * @return $this
-     */
-    public function setMessage($message)
+    public function setMessage(string $message): self
     {
         $this->message = $message;
 

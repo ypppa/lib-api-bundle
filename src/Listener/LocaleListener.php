@@ -42,7 +42,7 @@ class LocaleListener
         }
     }
 
-    private function resolveFromHeaders(Request $request)
+    private function resolveFromHeaders(Request $request): ?string
     {
         $defaultLocale = 'default';
         $preferredLanguage = $request->getPreferredLanguage(array_merge([$defaultLocale], $this->locales));

@@ -11,7 +11,7 @@ use Paysera\Bundle\ApiBundle\Entity\RestRequestOptions;
 class RestRequestOptionsRegistry
 {
     /**
-     * @var array|RestRequestOptions[] associative array
+     * @var RestRequestOptions[] associative array
      */
     private $restRequestOptionsByController;
 
@@ -25,11 +25,7 @@ class RestRequestOptionsRegistry
         $this->restRequestOptionsByController[$controller] = $options;
     }
 
-    /**
-     * @param string $controller
-     * @return RestRequestOptions|null
-     */
-    public function getRestRequestOptionsForController(string $controller)
+    public function getRestRequestOptionsForController(string $controller): ?RestRequestOptions
     {
         return $this->restRequestOptionsByController[$controller] ?? null;
     }

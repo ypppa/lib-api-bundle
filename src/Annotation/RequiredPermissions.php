@@ -22,10 +22,6 @@ class RequiredPermissions implements RestAnnotationInterface
         $this->setPermissions($options['permissions']);
     }
 
-    /**
-     * @param array $permissions
-     * @return $this
-     */
     private function setPermissions(array $permissions): self
     {
         $this->permissions = $permissions;

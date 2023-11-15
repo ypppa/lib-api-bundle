@@ -45,115 +45,68 @@ class Error
         $this->violations = [];
     }
 
-    /**
-     * @param string|null $code
-     *
-     * @return $this
-     */
-    public function setCode($code)
+    public function setCode(?string $code): self
     {
         $this->code = $code;
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getCode()
+    public function getCode(): ?string
     {
         return $this->code;
     }
 
-    /**
-     * @param int|null $statusCode
-     * @return $this
-     */
-    public function setStatusCode($statusCode)
+    public function setStatusCode(?int $statusCode): self
     {
         $this->statusCode = $statusCode;
         return $this;
     }
 
-    /**
-     * @return int|null
-     */
-    public function getStatusCode()
+    public function getStatusCode(): ?int
     {
         return $this->statusCode;
     }
 
-    /**
-     * @param string|null $uri
-     *
-     * @return $this
-     */
-    public function setUri($uri)
+    public function setUri(?string $uri): self
     {
         $this->uri = $uri;
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getUri()
+    public function getUri(): ?string
     {
         return $this->uri;
     }
 
-    /**
-     * @param string|null $message
-     *
-     * @return $this
-     */
-    public function setMessage($message)
+    public function setMessage(?string $message): self
     {
         $this->message = $message;
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getMessage()
+    public function getMessage(): ?string
     {
         return $this->message;
     }
 
-    /**
-     * @param array|null $properties
-     *
-     * @return $this
-     */
-    public function setProperties($properties)
+    public function setProperties(?array $properties): self
     {
         $this->properties = $properties;
         return $this;
     }
 
-    /**
-     * @return array|null
-     */
-    public function getProperties()
+    public function getProperties(): ?array
     {
         return $this->properties;
     }
 
-    /**
-     * @param array|null $data
-     *
-     * @return $this
-     */
-    public function setData($data)
+    public function setData(?array $data): self
     {
         $this->data = $data;
         return $this;
     }
 
-    /**
-     * @return array|null
-     */
-    public function getData()
+    public function getData(): ?array
     {
         return $this->data;
     }
@@ -171,7 +124,7 @@ class Error
      *
      * @return $this
      */
-    public function setViolations(array $violations)
+    public function setViolations(array $violations): self
     {
         $this->violations = $violations;
         return $this;

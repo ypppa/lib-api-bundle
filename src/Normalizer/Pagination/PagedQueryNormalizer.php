@@ -20,12 +20,7 @@ class PagedQueryNormalizer implements NormalizerInterface, TypeAwareInterface
     private $defaultTotalCountStrategy;
     private $maximumOffset;
 
-    /**
-     * @param ResultProvider $resultProvider
-     * @param string $defaultTotalCountStrategy
-     * @param int|null $maximumOffset
-     */
-    public function __construct(ResultProvider $resultProvider, string $defaultTotalCountStrategy, $maximumOffset)
+    public function __construct(ResultProvider $resultProvider, string $defaultTotalCountStrategy, ?int $maximumOffset)
     {
         $this->resultProvider = $resultProvider;
         $this->defaultTotalCountStrategy = $defaultTotalCountStrategy;
@@ -33,17 +28,18 @@ class PagedQueryNormalizer implements NormalizerInterface, TypeAwareInterface
     }
 
     /**
-     * @param PagedQuery $pagedQuery
+     * @param PagedQuery $entity
      * @param NormalizationContext $normalizationContext
+     *
      * @return array
      */
-    public function normalize($pagedQuery, NormalizationContext $normalizationContext)
+    public function normalize($entity, NormalizationContext $normalizationContext)
     {
-        $result = $this->fetchResultByPagedQuery($pagedQuery, $normalizationContext);
+        $result = $this->fetchResultByPagedQuery($entity, $normalizationContext);
         return $normalizationContext->normalize($result, '');
     }
 
-    private function fetchResultByPagedQuery(PagedQuery $pagedQuery, NormalizationContext $normalizationContext)
+    private function fetchResultByPagedQuery(PagedQuery $pagedQuery, NormalizationContext $normalizationContext): Result
     {
         $configuredQuery = clone $pagedQuery->getConfiguredQuery();
 

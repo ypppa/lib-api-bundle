@@ -7,6 +7,7 @@ use RuntimeException;
 use Exception;
 use InvalidArgumentException;
 use Symfony\Component\HttpFoundation\Response;
+use Throwable;
 
 /**
  * @internal
@@ -18,8 +19,9 @@ class ResponseBuilder
      *
      * @param mixed $data
      * @param int $statusCode
+     *
      * @return Response
-     * @throws Exception
+     * @throws Exception|Throwable
      */
     public function buildResponse($data, int $statusCode = Response::HTTP_OK): Response
     {
@@ -35,7 +37,7 @@ class ResponseBuilder
         return new Response('', Response::HTTP_NO_CONTENT, $this->getDefaultHeaders());
     }
 
-    private function getDefaultHeaders()
+    private function getDefaultHeaders(): array
     {
         return [
             'X-Frame-Options' => 'DENY',
@@ -43,7 +45,7 @@ class ResponseBuilder
         ];
     }
 
-    private function buildJsonResponse($data, int $statusCode, array $headers)
+    private function buildJsonResponse($data, int $statusCode, array $headers): Response
     {
         try {
             $content = json_encode($data, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);

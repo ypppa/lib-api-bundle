@@ -11,6 +11,7 @@ use Paysera\Bundle\ApiBundle\Listener\RestExceptionListener;
 use Paysera\Bundle\ApiBundle\Service\ErrorBuilderInterface;
 use Paysera\Bundle\ApiBundle\Service\ResponseBuilder;
 use Paysera\Bundle\ApiBundle\Service\RestRequestHelper;
+use Paysera\Bundle\ApiBundle\Tests\Unit\Helper\HttpKernelHelper;
 use Paysera\Component\Normalization\CoreNormalizer;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -51,41 +52,41 @@ class RestExceptionListenerTest extends MockeryTestCase
             $event = new ExceptionEvent(
                 $kernel,
                 $request,
-                HttpKernelInterface::MASTER_REQUEST,
+                HttpKernelHelper::getMainRequestConstValue(),
                 $exception
             );
         } else {
             $event = new GetResponseForExceptionEvent(
                 $kernel,
                 $request,
-                HttpKernelInterface::MASTER_REQUEST,
+                HttpKernelHelper::getMainRequestConstValue(),
                 $exception
             );
         }
 
-        $helper->shouldReceive('isRestRequest')->with($request)->andReturn($restRequest);
+        $helper->allows('isRestRequest')->with($request)->andReturns($restRequest);
 
         $error = (new Error())->setCode('custom');
         $response = new Response('custom error', $statusCode);
         $errorBuilder
-            ->shouldReceive('createErrorFromException')
+            ->allows('createErrorFromException')
             ->with($exception)
-            ->andReturn($error)
+            ->andReturns($error)
         ;
         $coreNormalizer
-            ->shouldReceive('normalize')
+            ->allows('normalize')
             ->with($error)
-            ->andReturn(['error' => 'custom'])
+            ->andReturns(['error' => 'custom'])
         ;
         $responseBuilder
-            ->shouldReceive('buildResponse')
+            ->allows('buildResponse')
             ->with(['error' => 'custom'], Response::HTTP_BAD_REQUEST)
-            ->andReturn($response)
+            ->andReturns($response)
         ;
 
-        $logger->shouldReceive('debug');
+        $logger->allows('debug');
         if ($logLevel !== null) {
-            $logger->shouldReceive('log')->once()->withSomeOfArgs($logLevel);
+            $logger->expects('log')->withSomeOfArgs($logLevel);
         }
 
         $listener->onKernelException($event);

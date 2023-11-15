@@ -82,12 +82,7 @@ class EntityValidator
         throw $exception;
     }
 
-    /**
-     * @param ConstraintViolation $violation
-     *
-     * @return null|string
-     */
-    private function getErrorCode(ConstraintViolation $violation)
+    private function getErrorCode(ConstraintViolation $violation): ?string
     {
         $constraint = $violation->getConstraint();
 

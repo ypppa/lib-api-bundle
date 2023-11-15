@@ -22,7 +22,7 @@ class PagedQueryNormalizerTest extends MockeryTestCase
         $normalizationContext = Mockery::mock(NormalizationContext::class);
 
         $normalizationContext
-            ->shouldReceive('isFieldIncluded')
+            ->allows('isFieldIncluded')
             ->andReturnUsing(function (string $key) {
                 return $key === '_metadata.total';
             })
@@ -34,24 +34,22 @@ class PagedQueryNormalizerTest extends MockeryTestCase
         $pager = Mockery::mock(Pager::class);
 
         $resultProvider
-            ->shouldReceive('getTotalCountForQuery')
+            ->expects('getTotalCountForQuery')
             ->withArgs(function ($givenQuery) use ($configuredQuery) {
                 $this->assertEquals($configuredQuery, $givenQuery);
                 return true;
             })
-            ->once()
-            ->andReturn(123)
+            ->andReturns(123)
         ;
 
         $finalResult = new stdClass();
         $normalizationContext
-            ->shouldReceive('normalize')
+            ->expects('normalize')
             ->withArgs(function (Result $result) {
                 $this->assertEquals(123, $result->getTotalCount());
                 return true;
             })
-            ->once()
-            ->andReturn($finalResult)
+            ->andReturns($finalResult)
         ;
 
         $normalizer = new PagedQueryNormalizer(
@@ -90,13 +88,13 @@ class PagedQueryNormalizerTest extends MockeryTestCase
         $normalizationContext = Mockery::mock(NormalizationContext::class);
 
         $normalizationContext
-            ->shouldReceive('isFieldIncluded')
+            ->allows('isFieldIncluded')
             ->andReturnUsing(function (string $key) use ($included) {
                 return in_array($key, $included, true);
             })
         ;
         $normalizationContext
-            ->shouldReceive('isFieldExplicitlyIncluded')
+            ->allows('isFieldExplicitlyIncluded')
             ->andReturnUsing(function (string $key) use ($explicitlyIncluded) {
                 return in_array($key, $explicitlyIncluded, true);
             })
@@ -108,7 +106,7 @@ class PagedQueryNormalizerTest extends MockeryTestCase
         $result = Mockery::mock(Result::class);
 
         $resultProvider
-            ->shouldReceive('getResultForQuery')
+            ->expects('getResultForQuery')
             ->withArgs(function (ConfiguredQuery $givenQuery, $givenPager) use ($expectedQuery, $pager) {
                 $this->assertEquals($expectedQuery->isTotalCountNeeded(), $givenQuery->isTotalCountNeeded());
                 if ($expectedQuery->hasMaximumOffset()) {
@@ -117,16 +115,14 @@ class PagedQueryNormalizerTest extends MockeryTestCase
                 $this->assertSame($pager, $givenPager);
                 return true;
             })
-            ->once()
-            ->andReturn($result)
+            ->andReturns($result)
         ;
 
         $finalResult = new stdClass();
         $normalizationContext
-            ->shouldReceive('normalize')
+            ->expects('normalize')
             ->with($result, '')
-            ->once()
-            ->andReturn($finalResult)
+            ->andReturns($finalResult)
         ;
 
         $normalizer = new PagedQueryNormalizer($resultProvider, $defaultStrategy, $maximumOffset);

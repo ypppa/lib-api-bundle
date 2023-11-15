@@ -24,14 +24,14 @@ class RestRequestOptionsBuilderTest extends MockeryTestCase
         $reflectionMethod = new ReflectionMethod(self::class, 'fixtureMethod');
 
         $annotationMock1 = Mockery::mock(RestAnnotationInterface::class);
-        $annotationMock1->shouldReceive('isSeveralSupported')->andReturn(true);
-        $annotationMock1->shouldReceive('apply')->andReturnUsing(function (RestRequestOptions $options) {
+        $annotationMock1->allows('isSeveralSupported')->andReturns(true);
+        $annotationMock1->allows('apply')->andReturnUsing(function (RestRequestOptions $options) {
             $options->setRequiredPermissions(['modified1']);
         });
 
         $annotationMock2 = Mockery::mock(RestAnnotationInterface::class);
-        $annotationMock2->shouldReceive('isSeveralSupported')->andReturn(true);
-        $annotationMock2->shouldReceive('apply')->andReturnUsing(function (RestRequestOptions $options) {
+        $annotationMock2->allows('isSeveralSupported')->andReturns(true);
+        $annotationMock2->allows('apply')->andReturnUsing(function (RestRequestOptions $options) {
             $options->setResponseNormalizationType('modified2');
         });
 
@@ -41,7 +41,7 @@ class RestRequestOptionsBuilderTest extends MockeryTestCase
         ;
 
         $optionsValidator
-            ->shouldReceive('validateRestRequestOptions')
+            ->allows('validateRestRequestOptions')
             ->andReturnUsing(function (RestRequestOptions $options, string $fieldlyName) use ($expectedOptions) {
                 $this->assertEquals($expectedOptions, $options);
                 $this->assertEquals(

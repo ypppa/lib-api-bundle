@@ -50,7 +50,7 @@ class ReflectionMethodWrapper
         return version_compare(PHP_VERSION, '7.1.0') >= 0 ? $type->getName() : (string)$type;
     }
 
-    public function getFriendlyName()
+    public function getFriendlyName(): string
     {
         return sprintf(
             '%s::%s',

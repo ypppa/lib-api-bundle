@@ -61,8 +61,8 @@ class ApiException extends Exception
         $message = null,
         $statusCode = null,
         Exception $previous = null,
-        $properties = null,
-        $data = null,
+        ?array $properties = null,
+        ?array $data = null,
         array $violations = []
     ) {
         parent::__construct($message ?: '', 0, $previous);
@@ -74,56 +74,34 @@ class ApiException extends Exception
         $this->violations = $violations;
     }
 
-    /**
-     * @return string
-     */
-    public function getErrorCode()
+    public function getErrorCode(): string
     {
         return $this->errorCode;
     }
 
-    /**
-     * @return int|null
-     */
-    public function getStatusCode()
+    public function getStatusCode(): ?int
     {
         return $this->statusCode;
     }
 
-    /**
-     * @param array|null $properties
-     *
-     * @return $this
-     */
-    public function setProperties($properties)
+    public function setProperties(?array $properties): self
     {
         $this->properties = $properties;
         return $this;
     }
 
-    /**
-     * @return array|null
-     */
-    public function getProperties()
+    public function getProperties(): ?array
     {
         return $this->properties;
     }
 
-    /**
-     * @param array|null $data
-     *
-     * @return $this
-     */
-    public function setData($data)
+    public function setData(?array $data): self
     {
         $this->data = $data;
         return $this;
     }
 
-    /**
-     * @return array|null
-     */
-    public function getData()
+    public function getData(): ?array
     {
         return $this->data;
     }
@@ -131,7 +109,7 @@ class ApiException extends Exception
     /**
      * @return Violation[]
      */
-    public function getViolations()
+    public function getViolations(): array
     {
         return $this->violations;
     }
@@ -141,7 +119,7 @@ class ApiException extends Exception
      *
      * @return $this
      */
-    public function setViolations($violations)
+    public function setViolations(array $violations): self
     {
         $this->violations = $violations;
         return $this;

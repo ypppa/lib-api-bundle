@@ -105,7 +105,7 @@ class RestRequestListener
      *
      * @return RestRequestOptions|null
      */
-    private function resolveOptionsForController(Request $request, callable $controller)
+    private function resolveOptionsForController(Request $request, callable $controller): ?RestRequestOptions
     {
         if ($this->requestHelper->isRestRequest($request)) {
             return $this->requestHelper->getOptionsFromRequest($request);
@@ -174,7 +174,6 @@ class RestRequestListener
      * @param RestRequestOptions $options
      *
      * @throws ApiException
-     * @throws InvalidItemException
      */
     private function addAttributesFromQuery(Request $request, RestRequestOptions $options)
     {
@@ -212,7 +211,6 @@ class RestRequestListener
      * @param RestRequestOptions $options
      *
      * @throws ApiException
-     * @throws InvalidItemException
      */
     private function addAttributesFromBody(Request $request, RestRequestOptions $options)
     {

@@ -11,20 +11,21 @@ use Paysera\Component\Normalization\TypeAwareInterface;
 class ErrorNormalizer implements NormalizerInterface, TypeAwareInterface
 {
     /**
-     * @param Error $result
+     * @param Error $entity
      * @param NormalizationContext $normalizationContext
+     *
      * @return array
      */
-    public function normalize($result, NormalizationContext $normalizationContext)
+    public function normalize($entity, NormalizationContext $normalizationContext): array
     {
         $normalizationContext->markNullValuesForRemoval();
         return [
-            'error' => $result->getCode(),
-            'error_description' => $result->getMessage(),
-            'error_uri' => $result->getUri(),
-            'error_properties' => $result->getProperties(),
-            'error_data' => $result->getData(),
-            'errors' => $result->getViolations() !== [] ? $result->getViolations() : null,
+            'error' => $entity->getCode(),
+            'error_description' => $entity->getMessage(),
+            'error_uri' => $entity->getUri(),
+            'error_properties' => $entity->getProperties(),
+            'error_data' => $entity->getData(),
+            'errors' => $entity->getViolations() !== [] ? $entity->getViolations() : null,
         ];
     }
 

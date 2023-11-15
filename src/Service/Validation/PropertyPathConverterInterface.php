@@ -5,10 +5,5 @@ namespace Paysera\Bundle\ApiBundle\Service\Validation;
 
 interface PropertyPathConverterInterface
 {
-    /**
-     * @param string $path
-     *
-     * @return string
-     */
-    public function convert($path);
+    public function convert(string $path): string;
 }

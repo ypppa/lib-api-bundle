@@ -24,7 +24,7 @@ class EntityValidatorTest extends MockeryTestCase
         $validator = Mockery::mock(ValidatorInterface::class);
         $propertyPathConverter = Mockery::mock(PropertyPathConverterInterface::class);
 
-        $validator->shouldNotReceive('validate');
+        $validator->allows('validate')->never();
 
         $entityValidator = new EntityValidator($validator, $propertyPathConverter);
         $entityValidator->validate('string', new ValidationOptions());
@@ -45,17 +45,17 @@ class EntityValidatorTest extends MockeryTestCase
 
         $entity = new stdClass();
         $validator
-            ->shouldReceive('validate')
+            ->allows('validate')
             ->with($entity, null, $groups)
-            ->andReturn(new ConstraintViolationList($violationList))
+            ->andReturns(new ConstraintViolationList($violationList))
         ;
         $propertyPathConverter
-            ->shouldReceive('convert')
+            ->allows('convert')
             ->with('pathToConvert')
-            ->andReturn('convertedPath')
+            ->andReturns('convertedPath')
         ;
         $propertyPathConverter
-            ->shouldReceive('convert')
+            ->allows('convert')
             ->andReturnUsing(function ($path) {
                 return $path;
             })
@@ -66,6 +66,9 @@ class EntityValidatorTest extends MockeryTestCase
             $entityValidator->validate($entity, $validationOptions);
             if ($expectedException !== null) {
                 $this->fail('Expected exception');
+            }
+            if (method_exists($this, 'expectNotToPerformAssertions')) {
+                $this->expectNotToPerformAssertions();
             }
         } catch (ApiException $exception) {
             $this->assertEquals($expectedException, $exception);

@@ -45,8 +45,10 @@ class RestExceptionListener
      * Ran on kernel.exception event
      *
      * Both events are typecasted as one is deprecated from 4.3, but another not available before this version
+     *
      * @param GetResponseForExceptionEvent|ExceptionEvent $event
-     * @throws Exception
+     *
+     * @throws Exception|Throwable
      */
     public function onKernelException($event)
     {

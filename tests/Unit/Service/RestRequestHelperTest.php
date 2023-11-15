@@ -74,10 +74,9 @@ class RestRequestHelperTest extends MockeryTestCase
         $options = new RestRequestOptions();
 
         $registry
-            ->shouldReceive('getRestRequestOptionsForController')
+            ->expects('getRestRequestOptionsForController')
             ->with('my custom controller')
-            ->once()
-            ->andReturn($options)
+            ->andReturns($options)
         ;
 
         $this->assertSame($options, $helper->resolveRestRequestOptionsForController($request, function () {}));
@@ -94,16 +93,14 @@ class RestRequestHelperTest extends MockeryTestCase
         $options = new RestRequestOptions();
 
         $registry
-            ->shouldReceive('getRestRequestOptionsForController')
+            ->expects('getRestRequestOptionsForController')
             ->with('my custom controller')
-            ->once()
             ->andReturnNull()
         ;
         $registry
-            ->shouldReceive('getRestRequestOptionsForController')
+            ->expects('getRestRequestOptionsForController')
             ->with('DateTimeImmutable::createFromFormat')
-            ->once()
-            ->andReturn($options)
+            ->andReturns($options)
         ;
 
         $this->assertSame($options, $helper->resolveRestRequestOptionsForController(

@@ -14,19 +14,20 @@ use Paysera\Component\Normalization\TypeAwareInterface;
 class ResultNormalizer implements NormalizerInterface, TypeAwareInterface
 {
     /**
-     * @param Result $result
+     * @param Result $entity
      * @param NormalizationContext $normalizationContext
+     *
      * @return array
      */
-    public function normalize($result, NormalizationContext $normalizationContext)
+    public function normalize($entity, NormalizationContext $normalizationContext): array
     {
         return [
-            'items' => $result->getItems(),
-            '_metadata' => $this->mapMetadataFromEntity($result),
+            'items' => $entity->getItems(),
+            '_metadata' => $this->mapMetadataFromEntity($entity),
         ];
     }
 
-    private function mapMetadataFromEntity(Result $result)
+    private function mapMetadataFromEntity(Result $result): array
     {
         $data = [
             'total' => $result->getTotalCount(),

@@ -37,7 +37,7 @@ class RestRequestHelper
      *
      * @internal
      */
-    public function resolveRestRequestOptionsForRequest(Request $request)
+    public function resolveRestRequestOptionsForRequest(Request $request): ?RestRequestOptions
     {
         $serialized = $request->attributes->get(self::SERIALIZED_REST_OPTIONS_KEY);
         if ($serialized !== null) {
@@ -58,7 +58,7 @@ class RestRequestHelper
      *
      * @internal
      */
-    public function resolveRestRequestOptionsForController(Request $request, callable $controller)
+    public function resolveRestRequestOptionsForController(Request $request, callable $controller): ?RestRequestOptions
     {
         $controllerIdentifier = $request->attributes->get('_controller');
         $options = $controllerIdentifier !== null
@@ -74,11 +74,10 @@ class RestRequestHelper
             if (is_object($controller[0])) {
                 $controllerAsArray[0] = get_class($controller[0]);
             }
-            $options = $this->restRequestOptionsRegistry->getRestRequestOptionsForController(
+
+            return $this->restRequestOptionsRegistry->getRestRequestOptionsForController(
                 implode('::', $controllerAsArray)
             );
-
-            return $options;
         }
 
         return null;

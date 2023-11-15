@@ -7,7 +7,7 @@ use Paysera\Bundle\ApiBundle\Service\Validation\PropertyPathConverterInterface;
 
 class CustomPropertyPathConverter implements PropertyPathConverterInterface
 {
-    public function convert($path)
+    public function convert(string $path): string
     {
         return 'prefixed:' . $path;
     }

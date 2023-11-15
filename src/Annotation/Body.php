@@ -41,41 +41,25 @@ class Body implements RestAnnotationInterface
         $this->setOptional($options['optional'] ?? null);
     }
 
-    /**
-     * @param string|null $denormalizationType
-     * @return $this
-     */
-    private function setDenormalizationType($denormalizationType): self
+    private function setDenormalizationType(?string $denormalizationType): self
     {
         $this->denormalizationType = $denormalizationType;
         return $this;
     }
 
-    /**
-     * @param string|null $denormalizationGroup
-     * @return $this
-     */
-    public function setDenormalizationGroup($denormalizationGroup): self
+    public function setDenormalizationGroup(?string $denormalizationGroup): self
     {
         $this->denormalizationGroup = $denormalizationGroup;
         return $this;
     }
 
-    /**
-     * @param string $parameterName
-     * @return $this
-     */
     private function setParameterName(string $parameterName): self
     {
         $this->parameterName = $parameterName;
         return $this;
     }
 
-    /**
-     * @param bool|null $optional
-     * @return $this
-     */
-    private function setOptional($optional): self
+    private function setOptional(?bool $optional): self
     {
         $this->optional = $optional;
         return $this;

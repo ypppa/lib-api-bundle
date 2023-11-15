@@ -84,11 +84,7 @@ class RestRequestOptions
         return $this;
     }
 
-    /**
-     * @param string|null $bodyDenormalizationGroup
-     * @return $this
-     */
-    public function setBodyDenormalizationGroup($bodyDenormalizationGroup): self
+    public function setBodyDenormalizationGroup(?string $bodyDenormalizationGroup): self
     {
         $this->bodyDenormalizationGroup = $bodyDenormalizationGroup;
         return $this;
@@ -113,30 +109,18 @@ class RestRequestOptions
         return $this;
     }
 
-    /**
-     * @param string|null $responseNormalizationType
-     * @return $this
-     */
-    public function setResponseNormalizationType($responseNormalizationType): self
+    public function setResponseNormalizationType(?string $responseNormalizationType): self
     {
         $this->responseNormalizationType = $responseNormalizationType;
         return $this;
     }
 
-    /**
-     * @param string|null $responseNormalizationGroup
-     * @return $this
-     */
-    public function setResponseNormalizationGroup($responseNormalizationGroup): self
+    public function setResponseNormalizationGroup(?string $responseNormalizationGroup): self
     {
         $this->responseNormalizationGroup = $responseNormalizationGroup;
         return $this;
     }
 
-    /**
-     * @param array $requiredPermissions array of string
-     * @return $this
-     */
     public function setRequiredPermissions(array $requiredPermissions): self
     {
         $this->requiredPermissions = $requiredPermissions;
@@ -176,10 +160,7 @@ class RestRequestOptions
         return $this->bodyDenormalizationType;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getBodyDenormalizationGroup()
+    public function getBodyDenormalizationGroup(): ?string
     {
         return $this->bodyDenormalizationGroup;
     }
@@ -209,18 +190,12 @@ class RestRequestOptions
         return $this->bodyOptional;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getResponseNormalizationType()
+    public function getResponseNormalizationType(): ?string
     {
         return $this->responseNormalizationType;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getResponseNormalizationGroup()
+    public function getResponseNormalizationGroup(): ?string
     {
         return $this->responseNormalizationGroup;
     }
@@ -231,7 +206,7 @@ class RestRequestOptions
     }
 
     /**
-     * @return array|PathAttributeResolverOptions[]
+     * @return PathAttributeResolverOptions[]
      */
     public function getPathAttributeResolverOptionsList(): array
     {
@@ -239,7 +214,7 @@ class RestRequestOptions
     }
 
     /**
-     * @return array|QueryResolverOptions[]
+     * @return QueryResolverOptions[]
      */
     public function getQueryResolverOptionsList(): array
     {

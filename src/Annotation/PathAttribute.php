@@ -42,41 +42,25 @@ class PathAttribute implements RestAnnotationInterface
         $this->setResolutionMandatory($options['resolutionMandatory'] ?? null);
     }
 
-    /**
-     * @param string $parameterName
-     * @return $this
-     */
     private function setParameterName(string $parameterName): self
     {
         $this->parameterName = $parameterName;
         return $this;
     }
 
-    /**
-     * @param string $pathPartName
-     * @return $this
-     */
     private function setPathPartName(string $pathPartName): self
     {
         $this->pathPartName = $pathPartName;
         return $this;
     }
 
-    /**
-     * @param string|null $resolverType
-     * @return $this
-     */
-    private function setResolverType($resolverType): self
+    private function setResolverType(?string $resolverType): self
     {
         $this->resolverType = $resolverType;
         return $this;
     }
 
-    /**
-     * @param bool|null $resolutionMandatory
-     * @return $this
-     */
-    private function setResolutionMandatory($resolutionMandatory): self
+    private function setResolutionMandatory(?bool $resolutionMandatory): self
     {
         $this->resolutionMandatory = $resolutionMandatory;
         return $this;

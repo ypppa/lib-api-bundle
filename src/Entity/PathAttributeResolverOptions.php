@@ -74,18 +74,11 @@ class PathAttributeResolverOptions
         return $this->pathAttributeResolverType;
     }
 
-    /**
-     * @return bool
-     */
     public function isResolutionMandatory(): bool
     {
         return $this->resolutionMandatory;
     }
 
-    /**
-     * @param bool $resolutionMandatory
-     * @return $this
-     */
     public function setResolutionMandatory(bool $resolutionMandatory): self
     {
         $this->resolutionMandatory = $resolutionMandatory;

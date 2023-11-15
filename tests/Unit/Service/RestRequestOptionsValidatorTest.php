@@ -1,5 +1,4 @@
 <?php
-/** @noinspection PhpMethodParametersCountMismatchInspection */
 declare(strict_types=1);
 
 namespace Paysera\Bundle\ApiBundle\Tests\Unit\Service;
@@ -38,40 +37,40 @@ class RestRequestOptionsValidatorTest extends MockeryTestCase
         );
 
         $normalizerRegistryMock
-            ->shouldReceive('hasNormalizer')
+            ->allows('hasNormalizer')
             ->with('non_existing_normalizer')
-            ->andReturn(false)
+            ->andReturns(false)
         ;
         $normalizerRegistryMock
-            ->shouldReceive('hasNormalizer')
+            ->allows('hasNormalizer')
             ->with('existing_normalizer')
-            ->andReturn(true)
+            ->andReturns(true)
         ;
         $normalizerRegistryMock
-            ->shouldReceive('getDenormalizerType')
+            ->allows('getDenormalizerType')
             ->with('non_existing_denormalizer')
-            ->andReturn(NormalizerRegistryInterface::DENORMALIZER_TYPE_NONE)
+            ->andReturns(NormalizerRegistryInterface::DENORMALIZER_TYPE_NONE)
         ;
         $normalizerRegistryMock
-            ->shouldReceive('getDenormalizerType')
+            ->allows('getDenormalizerType')
             ->with('object_denormalizer')
-            ->andReturn(NormalizerRegistryInterface::DENORMALIZER_TYPE_OBJECT)
+            ->andReturns(NormalizerRegistryInterface::DENORMALIZER_TYPE_OBJECT)
         ;
         $normalizerRegistryMock
-            ->shouldReceive('getDenormalizerType')
+            ->allows('getDenormalizerType')
             ->with('mixed_type_denormalizer')
-            ->andReturn(NormalizerRegistryInterface::DENORMALIZER_TYPE_MIXED)
+            ->andReturns(NormalizerRegistryInterface::DENORMALIZER_TYPE_MIXED)
         ;
 
         $pathAttributeRegistryMock
-            ->shouldReceive('getResolverByType')
+            ->allows('getResolverByType')
             ->with('non_existing_path_attribute_resolver')
             ->andThrow(new InvalidArgumentException())
         ;
         $pathAttributeRegistryMock
-            ->shouldReceive('getResolverByType')
+            ->allows('getResolverByType')
             ->with('existing_path_attribute_resolver')
-            ->andReturn(Mockery::mock(PathAttributeResolverInterface::class))
+            ->andReturns(Mockery::mock(PathAttributeResolverInterface::class))
         ;
 
         if ($expectException) {

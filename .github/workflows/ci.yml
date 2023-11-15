@@ -35,16 +35,16 @@ jobs:
                         {php-version: '8.0', symfony-version: '4.4.*', dependency-versions: 'latest'},
 #                        {php-version: '8.1', symfony-version: '4.4.*', dependency-versions: 'lowest'},
                         {php-version: '8.1', symfony-version: '4.4.*', dependency-versions: 'latest'},
-#                        { php-version: '7.2', symfony-version: '5.4.*', dependency-versions: 'lowest' },
-#                        { php-version: '7.2', symfony-version: '5.4.*', dependency-versions: 'latest' },
-#                        { php-version: '7.3', symfony-version: '5.4.*', dependency-versions: 'lowest' },
-#                        { php-version: '7.3', symfony-version: '5.4.*', dependency-versions: 'latest' },
-#                        { php-version: '7.4', symfony-version: '5.4.*', dependency-versions: 'lowest' },
-#                        { php-version: '7.4', symfony-version: '5.4.*', dependency-versions: 'latest' },
-#                        { php-version: '8.0', symfony-version: '5.4.*', dependency-versions: 'lowest' },
-#                        { php-version: '8.0', symfony-version: '5.4.*', dependency-versions: 'latest' },
-#                        { php-version: '8.1', symfony-version: '5.4.*', dependency-versions: 'lowest' },
-#                        { php-version: '8.1', symfony-version: '5.4.*', dependency-versions: 'latest' },
+                        { php-version: '7.2', symfony-version: '5.4.*', dependency-versions: 'lowest' },
+                        { php-version: '7.2', symfony-version: '5.4.*', dependency-versions: 'latest' },
+                        { php-version: '7.3', symfony-version: '5.4.*', dependency-versions: 'lowest' },
+                        { php-version: '7.3', symfony-version: '5.4.*', dependency-versions: 'latest' },
+                        { php-version: '7.4', symfony-version: '5.4.*', dependency-versions: 'lowest' },
+                        { php-version: '7.4', symfony-version: '5.4.*', dependency-versions: 'latest' },
+                        { php-version: '8.0', symfony-version: '5.4.*', dependency-versions: 'lowest' },
+                        { php-version: '8.0', symfony-version: '5.4.*', dependency-versions: 'latest' },
+                        { php-version: '8.1', symfony-version: '5.4.*', dependency-versions: 'lowest' },
+                        { php-version: '8.1', symfony-version: '5.4.*', dependency-versions: 'latest' },
                     ]
         steps:
             - name: Checkout
@@ -58,7 +58,8 @@ jobs:
             - name: Install symfony/flex
               run:
                 composer global require --no-progress --no-scripts --no-plugins symfony/flex &&
-                composer global config --no-plugins allow-plugins.symfony/flex true
+                composer global config --no-plugins allow-plugins.symfony/flex true &&
+                composer config --no-plugins allow-plugins.ocramius/package-versions false
 
             - name: Install dependencies
               if: ${{ matrix.requirements.dependency-versions == 'latest' }}

@@ -11,16 +11,17 @@ use Paysera\Component\Normalization\TypeAwareInterface;
 class ViolationNormalizer implements NormalizerInterface, TypeAwareInterface
 {
     /**
-     * @param Violation $result
+     * @param Violation $entity
      * @param NormalizationContext $normalizationContext
+     *
      * @return array
      */
-    public function normalize($result, NormalizationContext $normalizationContext)
+    public function normalize($entity, NormalizationContext $normalizationContext): array
     {
         return [
-            'code' => $result->getCode(),
-            'message' => $result->getMessage(),
-            'field' => $result->getField(),
+            'code' => $entity->getCode(),
+            'message' => $entity->getMessage(),
+            'field' => $entity->getField(),
         ];
     }
 

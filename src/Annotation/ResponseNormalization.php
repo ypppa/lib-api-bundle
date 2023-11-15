@@ -28,21 +28,13 @@ class ResponseNormalization implements RestAnnotationInterface
         $this->setNormalizationGroup($options['normalizationGroup'] ?? null);
     }
 
-    /**
-     * @param string|null $normalizationType
-     * @return $this
-     */
-    private function setNormalizationType($normalizationType): self
+    private function setNormalizationType(?string $normalizationType): self
     {
         $this->normalizationType = $normalizationType;
         return $this;
     }
 
-    /**
-     * @param string|null $normalizationGroup
-     * @return $this
-     */
-    public function setNormalizationGroup($normalizationGroup): self
+    public function setNormalizationGroup(?string $normalizationGroup): self
     {
         $this->normalizationGroup = $normalizationGroup;
         return $this;

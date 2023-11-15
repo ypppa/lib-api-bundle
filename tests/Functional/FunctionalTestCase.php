@@ -8,7 +8,8 @@ use Doctrine\ORM\Tools\SchemaTool;
 use Paysera\Bundle\ApiBundle\Tests\Functional\Fixtures\TestKernel;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\DependencyInjection\ResettableContainerInterface;
+use Symfony\Component\HttpKernel\Kernel;
+use Symfony\Contracts\Service\ResetInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,7 +29,8 @@ abstract class FunctionalTestCase extends TestCase
      */
     protected function setUpContainer($testCase, $commonFile = 'common.yml')
     {
-        $this->kernel = new TestKernel($testCase, $commonFile);
+        $prefix = Kernel::MAJOR_VERSION <= 4 ? 'legacy_' : '';
+        $this->kernel = new TestKernel($testCase, $prefix . $commonFile);
         $this->kernel->boot();
         return $this->kernel->getContainer();
     }
@@ -37,7 +39,7 @@ abstract class FunctionalTestCase extends TestCase
     {
         $container = $this->kernel->getContainer();
         $this->kernel->shutdown();
-        if ($container instanceof ResettableContainerInterface) {
+        if ($container instanceof ResetInterface) {
             $container->reset();
         }
 
