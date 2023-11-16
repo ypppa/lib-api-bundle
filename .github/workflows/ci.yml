@@ -1,0 +1,72 @@
+name: CI
+
+on: push
+
+permissions:
+    contents: read
+
+jobs:
+    phpunit:
+        name: Run tests PHP ${{ matrix.requirements.php-version }} Symfony ${{ matrix.requirements.symfony-version }} ${{ matrix.requirements.dependency-versions }}
+        runs-on: ubuntu-latest
+        strategy:
+            max-parallel: 8
+            fail-fast: false
+            matrix:
+                requirements:
+                    [
+                        {php-version: '7.1', symfony-version: '3.4.*', dependency-versions: 'lowest'},
+                        {php-version: '7.1', symfony-version: '3.4.*', dependency-versions: 'latest'},
+                        {php-version: '7.2', symfony-version: '3.4.*', dependency-versions: 'lowest'},
+                        {php-version: '7.2', symfony-version: '3.4.*', dependency-versions: 'latest'},
+                        {php-version: '7.3', symfony-version: '3.4.*', dependency-versions: 'lowest'},
+                        {php-version: '7.3', symfony-version: '3.4.*', dependency-versions: 'latest'},
+                        {php-version: '7.4', symfony-version: '3.4.*', dependency-versions: 'lowest'},
+                        {php-version: '7.4', symfony-version: '3.4.*', dependency-versions: 'latest'},
+                        { php-version: '7.1', symfony-version: '4.4.*', dependency-versions: 'lowest' },
+                        { php-version: '7.1', symfony-version: '4.4.*', dependency-versions: 'latest' },
+                        { php-version: '7.2', symfony-version: '4.4.*', dependency-versions: 'lowest' },
+                        { php-version: '7.2', symfony-version: '4.4.*', dependency-versions: 'latest' },
+                        { php-version: '7.3', symfony-version: '4.4.*', dependency-versions: 'lowest' },
+                        { php-version: '7.3', symfony-version: '4.4.*', dependency-versions: 'latest' },
+                        { php-version: '7.4', symfony-version: '4.4.*', dependency-versions: 'lowest' },
+                        { php-version: '7.4', symfony-version: '4.4.*', dependency-versions: 'latest' },
+#                        {php-version: '8.0', symfony-version: '4.4.*', dependency-versions: 'lowest'},
+                        {php-version: '8.0', symfony-version: '4.4.*', dependency-versions: 'latest'},
+#                        {php-version: '8.1', symfony-version: '4.4.*', dependency-versions: 'lowest'},
+                        {php-version: '8.1', symfony-version: '4.4.*', dependency-versions: 'latest'},
+#                        { php-version: '7.2', symfony-version: '5.4.*', dependency-versions: 'lowest' },
+#                        { php-version: '7.2', symfony-version: '5.4.*', dependency-versions: 'latest' },
+#                        { php-version: '7.3', symfony-version: '5.4.*', dependency-versions: 'lowest' },
+#                        { php-version: '7.3', symfony-version: '5.4.*', dependency-versions: 'latest' },
+#                        { php-version: '7.4', symfony-version: '5.4.*', dependency-versions: 'lowest' },
+#                        { php-version: '7.4', symfony-version: '5.4.*', dependency-versions: 'latest' },
+#                        { php-version: '8.0', symfony-version: '5.4.*', dependency-versions: 'lowest' },
+#                        { php-version: '8.0', symfony-version: '5.4.*', dependency-versions: 'latest' },
+#                        { php-version: '8.1', symfony-version: '5.4.*', dependency-versions: 'lowest' },
+#                        { php-version: '8.1', symfony-version: '5.4.*', dependency-versions: 'latest' },
+                    ]
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v3
+
+            - name: Setup PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: ${{ matrix.requirements.php-version }}
+
+            - name: Install symfony/flex
+              run:
+                composer global require --no-progress --no-scripts --no-plugins symfony/flex &&
+                composer global config --no-plugins allow-plugins.symfony/flex true
+
+            - name: Install dependencies
+              if: ${{ matrix.requirements.dependency-versions == 'latest' }}
+              run: SYMFONY_REQUIRE=${{ matrix.requirements.symfony-version }} composer update --prefer-dist --no-progress
+
+            - name: Install dependencies
+              if: ${{ matrix.requirements.dependency-versions == 'lowest' }}
+              run: SYMFONY_REQUIRE=${{ matrix.requirements.symfony-version }} composer update --prefer-lowest --prefer-stable --no-progress
+
+            - name: Run tests
+              run: composer test
