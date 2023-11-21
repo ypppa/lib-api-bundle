@@ -6,7 +6,6 @@ namespace Paysera\Bundle\ApiBundle\Tests\Unit\Service;
 use InvalidArgumentException;
 use JsonSerializable;
 use Paysera\Bundle\ApiBundle\Service\ResponseBuilder;
-use Paysera\Bundle\ApiBundle\Tests\Unit\Serializer\JsonSerializerExtension;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
 use Symfony\Component\HttpFoundation\Response;
@@ -44,7 +43,13 @@ class ResponseBuilderTest extends TestCase
         $builder = new ResponseBuilder();
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('expected');
-        $builder->buildResponse(new JsonSerializerExtension());
+        $builder->buildResponse(new class() implements JsonSerializable {
+            #[\ReturnTypeWillChange]
+            public function jsonSerialize()
+            {
+                throw new RuntimeException('expected');
+            }
+        });
     }
 
     public function testBuildEmptyResponse()
